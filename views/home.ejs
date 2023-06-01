@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Sharing System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+   <section class="uploadContainer">
+    <div class="dragZone">
+        <div class="iconContainer">
+            <img src="images/file.svg" alt="" class="fileLeft" draggable="false">
+            <img src="images/file.svg" alt="" class="fileCenter" draggable="false">
+            <img src="images/file.svg" alt="" class="fileRight" draggable="false">
+        </div>
+        <input type="file" name="MyFile" id="fileInput"/>
+        <h2>Drop your Files here or <span class="browse">browse</span></h2>
+    </div>
+    <form action="/post" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="formFileSm" class="form-label">Cover Image</label>
+            <input class="form-control form-control-sm" name="MyFile" id="formFileSm" type="file">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+   </section>
+
+<script src="js/script.js"></script>
+</body>
+</html>

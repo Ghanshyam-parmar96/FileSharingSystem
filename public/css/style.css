@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} 
+
+:root{
+    --main-bg-color : #eff5fe;
+    --border-color : #0288d147;
+}
+
+body{
+    background-color: var(--main-bg-color);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uploadContainer{
+    border-radius: 25px;
+    background-color: #fff;
+    box-shadow:2px 5px 10px #c4bdbd;
+}
+
+.dragZone {
+    width: 500px;
+    height: 200px ;
+    border: 2px dashed var(--border-color);
+    margin: 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.dragged.dragZone {
+    background-color: var(--main-bg-color);
+    border-color: #5959e9;
+}
+
+.iconContainer {
+    width: 75px;
+    height: 50%;
+    position: relative;
+}
+
+.iconContainer img {
+    width: 75px;
+    position: absolute;
+    transition: transform .5s ease-in-out;
+}
+
+.iconContainer .fileCenter{
+    z-index: 2;
+    transform-origin: bottom;    
+}
+
+.browse{
+    color: #65b5ff;
+    cursor: pointer;
+}
+
+
+.dragged .iconContainer .fileRight {
+    transform: rotate(15deg) translateX(20px) scale(0.9);
+    transform-origin: bottom;    
+}
+
+.dragged .iconContainer .fileLeft {
+    transform: rotate(-15deg) translateX(-20px) scale(0.9);
+    transform-origin: bottom;    
+}
+
+.iconContainer .fileLeft , .iconContainer .fileRight {
+    filter: grayscale(0.5);
+}
+
+.dragged .iconContainer .fileCenter {
+    transform: translateY(-5px);
+}
+
+
+#fileInput{
+    display: none;
+}
