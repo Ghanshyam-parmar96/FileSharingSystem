@@ -1,33 +1,65 @@
-// const MyFile = require("../../models/uploadFiles");
+// const { json } = require("express");
 
 const dragZone = document.querySelector(".dragZone");
 const fileInput = document.querySelector("#fileInput");
 const browse = document.querySelector(".browse");
+const progressBar = document.querySelector(".progressBar");
+const parcent = document.querySelector(".parcent");
+const blueBar = document.querySelector(".blueBar");
+const progressContainer = document.querySelector(".progressContainer");
+const userLinkSection = document.querySelector(".userLinkSection");
+
+// progressContainer.style.display = "none";
+
 
 const uploadFile = async () =>{
+    progressContainer.style.display = "block";
     const file = fileInput.files[0];
-    const ma = "ram";
     const forms = new FormData();
     const appendData = forms.append("MyFile",file);
     
+    // const sendData = await fetch("http://localhost:8000/post", {
+    //     "method" : "POST",
+    //     "body" : forms,
+    // })   
+    // .then((res) => {
+    //     res.json();
+    // }).then((data) => {
+    //     console.log(data);
+    // }).catch((err) => {
+    //     console.log(err);
+    // })
 
-    // console.log(forms.get("myfile"));
-    
-    await fetch("http://localhost:8000/post", {
-        "method" : "POST",
-        "body" : forms,
-    })   
-    .then((res) => {
-        res.json();
-    }).then((data) => {
-        console.log(data);
-    }).catch((err) => {
-        console.log(err);
-    })
-    
-    // const res = await send.json();
-    // const data = 
-    
+    const showLink = (success) => {
+        // console.log(json.parse(success.success));
+        progressContainer.style.display = "block";
+        userLinkSection.style.display = "block";
+
+    }
+
+    const uploadUrl = `http://localhost:8000/post`
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            // console.log(xhr.response);
+            showLink(xhr.response);
+        }
+    };
+  
+    const updateProgress = (e) => {
+        const percent = Math.round((e.loaded / e.total)*100);
+        // console.log(percent);
+        progressBar.style.width = `${percent}%`;
+        blueBar.style.width = `${percent}%`;
+        parcent.innerHTML = percent;
+    }
+
+    xhr.upload.onprogress = updateProgress;
+
+    xhr.open("POST", uploadUrl);
+    xhr.send(forms)
+
+
 }
 
 dragZone.addEventListener("dragover", (event) => {
@@ -47,22 +79,18 @@ dragZone.addEventListener("drop", (event) => {
     const files = event.dataTransfer.files;
     if (files.length) {
         fileInput.files = files;        
-        // console.log(fileInput.files);
     }
     
     uploadFile()
 });
 
 
+fileInput.addEventListener("change", () => {
+    uploadFile()
+})
+
 browse.addEventListener("click", (event) => {
-    fileInput.click();
-    const files = event.dataTransfer.files;
-    if (files.length) {
-        fileInput.files = files;        
-        console.log(fileInput.files);
-    }
-    
-    // uploadFile()
+    fileInput.click();   
 });
 
 

@@ -7,6 +7,7 @@
 :root{
     --main-bg-color : #eff5fe;
     --border-color : #0288d147;
+    --Container-width : 500px;
 }
 
 body{
@@ -24,7 +25,7 @@ body{
 }
 
 .dragZone {
-    width: 500px;
+    width: var(--Container-width);
     height: 200px ;
     border: 2px dashed var(--border-color);
     margin: 30px;
@@ -85,3 +86,78 @@ body{
 #fileInput{
     display: none;
 }
+
+.progressContainer{
+    width: var(--Container-width);
+    height: 70px;
+    border: 2px solid var(--main-bg-color);
+    margin: 30px;
+    border-radius: 10px;
+    display: none;
+}
+
+.progressContainer .progressBar{
+    height: 100%;
+    width: 0%;
+    background-color: var(--main-bg-color);
+    /* transform: scaleX(0); */
+    transform-origin: left;
+    transition: width .25s linear;
+}
+
+.progressContainer .progressBar .uploading{
+    margin: auto 15px;
+    padding-top: 5px;
+}
+
+.progressContainer .progressBar .parsentage{
+    margin: auto 15px;
+}
+
+.progressContainer .progressBar .prograssLine{
+    height: 5px;
+    width: 475px;
+    margin: 5px 10px;
+}
+
+.progressContainer .progressBar .prograssLine .blueBar{
+    height: 100%;
+    width: 0%;
+    background-color: #3c91fb;
+    transition: width .25s linear;
+}
+
+.userLinkSection{
+    width: var(--Container-width);
+    height: 30px;
+    border: 2px dashed var(--border-color);
+    margin: 50px 0 30px 30px;
+    border-radius: 10px;
+    background-color: var(--main-bg-color);
+    transition: width .25s linear;
+    position: relative;
+    display: none;
+}
+
+.userLinkSection .expired{
+    position: absolute;
+    top: -30px;
+}
+ 
+.userLinkSection #textBox{
+    outline: none;
+    height: 100%;
+    border: none;
+    padding: 0 10px;
+    border-radius: 10px;
+    width: 92%;
+    background-color: var(--main-bg-color);
+}
+
+.userLinkSection #copyIcon{
+    position: absolute;
+    margin: 2px 0 0 8px;
+    height: 23px;
+    cursor: pointer;
+}
+ 

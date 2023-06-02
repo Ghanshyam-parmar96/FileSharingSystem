@@ -23,7 +23,7 @@ rout.post("/", upload.single("MyFile"), async (req, res) => {
     const fileName = await uploadFile.create({
         MyFile : `/uploads/${req.file.fieldname}`,
     })
-    res.send({succes : "successfull send"});
+    res.send({success : "successfull send"});
 })
 
 
