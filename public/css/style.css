@@ -16,6 +16,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 .uploadContainer{
@@ -93,7 +94,7 @@ body{
     border: 2px solid var(--main-bg-color);
     margin: 30px;
     border-radius: 10px;
-    display: none;
+    /* display: none; */
 }
 
 .progressContainer .progressBar{
@@ -116,7 +117,7 @@ body{
 
 .progressContainer .progressBar .prograssLine{
     height: 5px;
-    width: 475px;
+    width: 95%;
     margin: 5px 10px;
 }
 
@@ -136,7 +137,7 @@ body{
     background-color: var(--main-bg-color);
     transition: width .25s linear;
     position: relative;
-    display: none;
+    /* display: none; */
 }
 
 .userLinkSection .expired{
@@ -161,3 +162,93 @@ body{
     cursor: pointer;
 }
  
+.mailText{
+    text-align: center;
+    /* display: none; */
+}
+
+.mailBox{
+    width: var(--Container-width);
+    height: auto;
+    border: 2px dashed var(--border-color);
+    margin: 10px 30px 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* display: none;  */
+}
+
+.mailBox div{
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    letter-spacing: 1px;
+}
+
+
+.mailBox div input {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid var(--border-color);
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+
+.mailBox .mailSendBtn {
+    background-color: var(--main-bg-color);
+    margin: auto;
+    margin-bottom: 20px;
+    display: flex;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0px 2px 5px #e7e4e4;
+}
+
+
+.toast{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%,560px);
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #03a9f4;
+    letter-spacing: 1px;
+    color: #fff;
+    box-shadow: 0px 2px 5px #c5c4c4;
+    font-size: 16px;
+    transition: transform ease-in-out 1s;
+    
+}
+
+/* @media screen and (max-width : 720px) {
+    :root {
+        --Container-width : 70vw;           
+    }
+    body{
+        overflow: hidden;
+    }
+    .mailBox div {
+        gap: 10px;
+    }
+} */
+
+@media screen and (max-width : 500px) {
+    :root {
+        --Container-width : 70vw;           
+    }
+   
+    .uploadContainer{
+        overflow-y: scroll;
+    }
+    .mailBox div {
+        gap: 5px;
+    }
+}
+

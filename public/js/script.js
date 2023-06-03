@@ -8,6 +8,12 @@ const parcent = document.querySelector(".parcent");
 const blueBar = document.querySelector(".blueBar");
 const progressContainer = document.querySelector(".progressContainer");
 const userLinkSection = document.querySelector(".userLinkSection");
+const copyIcon = document.querySelector("#copyIcon");
+const textBox = document.querySelector("#textBox");
+const mailBox = document.querySelector(".mailBox");
+const mailText = document.querySelector(".mailText");
+const EmailForm = document.querySelector("#EmailForm");
+const toast = document.querySelector(".toast");
 
 // progressContainer.style.display = "none";
 
@@ -29,11 +35,15 @@ const uploadFile = async () =>{
     // }).catch((err) => {
     //     console.log(err);
     // })
-
+    progressContainer.style.display = "block";
+    
     const showLink = (success) => {
         // console.log(json.parse(success.success));
-        progressContainer.style.display = "block";
+        progressContainer.style.display = "none";
         userLinkSection.style.display = "block";
+        mailBox.style.display = "block";
+        mailText.style.display = "block";
+        EmailForm[2].removeAttribute("disabled")
 
     }
 
@@ -55,6 +65,11 @@ const uploadFile = async () =>{
     }
 
     xhr.upload.onprogress = updateProgress;
+
+    xhr.upload.onerror = () => {
+        fileInput.value = "";
+        showToast(`Error in upload : ${xhr.statusText}`)
+    }
 
     xhr.open("POST", uploadUrl);
     xhr.send(forms)
@@ -94,4 +109,47 @@ browse.addEventListener("click", (event) => {
 });
 
 
+copyIcon.addEventListener("click", () => {
+    textBox.select();
+    document.execCommand("copy");  // for copy value of textBox
+    showToast("Link Copied")
+})
 
+EmailForm.addEventListener ("submit", (e) => {
+    e.preventDefault();
+    const url = textBox.value;
+    const forData = {
+        uuid : url.split("/").splice(-1 , 1)[0],
+        emailTo : EmailForm.elements["YourEmail"].value,
+        emailFrom : EmailForm.elements["ClientEmail"].value,
+    };
+
+    EmailForm[2].setAttribute("disabled" , "true");
+
+    fetch( `http://localhost:8000/post/gmail`, {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        body : JSON.stringify(forData)
+    }).then( (res) => {
+        res.json();
+    }).then( ({success}) => {
+        if (success) {
+            mailBox.style.display = "none";
+            showToast("Email Send")
+        }
+    }).catch( (err) => {
+        console.log(err);
+    })
+})
+
+let tostTimer;
+const showToast = (msg) => {
+    toast.innerHTML = msg;
+    toast.style.transform = "translate(-50%,0px)";
+    clearTimeout(tostTimer);
+    tostTimer = setTimeout(() => {
+        toast.style.transform = "translate(-50%, 60px)";        
+    }, 3000);
+} 

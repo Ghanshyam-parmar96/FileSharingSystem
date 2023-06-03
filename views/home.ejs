@@ -30,7 +30,22 @@
         <input type="text" name="" readonly value="https://www.pngwing.com/en/free-png-yqhgd/download" id="textBox">
         <img src="/images/pngwing.com.png" id="copyIcon" alt="" />
     </div>
+    <h3 class="mailText">Or Send via Email</h3>
+    <div class="mailBox">
+        <form id="EmailForm" >
+            <div>
+                <label for="YourEmail">Your Email</label>
+                <input type="email" required id="YourEmail" name="YourEmail">
+            </div>
+            <div>
+                <label for="ClientEmail">Receiver's Email</label>
+                <input type="email" required id="ClientEmail" name="ClientEmail">
+            </div>
+            <button class="mailSendBtn" type="submit">Send</button>
+        </form>
+    </div>
    </section>
+   <div class="toast"></div>
 
 <script src="js/script.js"></script>
 </body>
