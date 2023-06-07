@@ -16,6 +16,7 @@ const EmailForm = document.querySelector("#EmailForm");
 const toast = document.querySelector(".toast");
 
 // progressContainer.style.display = "none";
+const maxUploadSize = 5242880;
 
 
 const uploadFile = async () =>{
@@ -23,22 +24,10 @@ const uploadFile = async () =>{
     const file = fileInput.files[0];
     const forms = new FormData();
     const appendData = forms.append("MyFile",file);
-    
-    // const sendData = await fetch("http://localhost:8000/post", {
-    //     "method" : "POST",
-    //     "body" : forms,
-    // })   
-    // .then((res) => {
-    //     res.json();
-    // }).then((data) => {
-    //     console.log(data);
-    // }).catch((err) => {
-    //     console.log(err);
-    // })
+
     progressContainer.style.display = "block";
     
     const showLink = (success) => {
-        // console.log(json.parse(success.success));
         progressContainer.style.display = "none";
         userLinkSection.style.display = "block";
         mailBox.style.display = "block";
@@ -74,7 +63,6 @@ const uploadFile = async () =>{
     xhr.open("POST", uploadUrl);
     xhr.send(forms)
 
-
 }
 
 dragZone.addEventListener("dragover", (event) => {
@@ -88,20 +76,31 @@ dragZone.addEventListener("dragleave", (event) => {
     dragZone.classList.remove("dragged");        
 });
 
+const handlevalidation = () => {    
+    if (fileInput.files.length === 1) {
+        if (fileInput.files[0].size <= maxUploadSize) {
+            console.log(`upload`);
+            uploadFile();
+        } else {
+            showToast(`can't upload upload more then 100 Mb file`);            
+        }
+    }else{
+        showToast(`can't upload more them 1 file`);
+    }
+}
+
 dragZone.addEventListener("drop", (event) => {
     event.preventDefault();
     dragZone.classList.remove("dragged");        
     const files = event.dataTransfer.files;
-    if (files.length) {
-        fileInput.files = files;        
-    }
-    
-    uploadFile()
+    fileInput.files = files;  
+
+    handlevalidation()
 });
 
 
 fileInput.addEventListener("change", () => {
-    uploadFile()
+    handlevalidation();
 })
 
 browse.addEventListener("click", (event) => {
@@ -147,9 +146,9 @@ EmailForm.addEventListener ("submit", (e) => {
 let tostTimer;
 const showToast = (msg) => {
     toast.innerHTML = msg;
-    toast.style.transform = "translate(-50%,0px)";
+    toast.style.display = "block";
     clearTimeout(tostTimer);
-    tostTimer = setTimeout(() => {
-        toast.style.transform = "translate(-50%, 60px)";        
+    tostTimer = setTimeout(() => { 
+        toast.style.display = "none";
     }, 3000);
 } 
