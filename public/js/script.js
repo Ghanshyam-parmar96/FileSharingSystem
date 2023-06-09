@@ -1,4 +1,3 @@
-// const { json } = require("express");
 
 const dragZone = document.querySelector(".dragZone");
 const fileInput = document.querySelector("#fileInput");
@@ -16,7 +15,7 @@ const EmailForm = document.querySelector("#EmailForm");
 const toast = document.querySelector(".toast");
 
 // progressContainer.style.display = "none";
-const maxUploadSize = 5242880;
+const maxUploadSize = 104857600;
 
 
 const uploadFile = async () =>{
@@ -28,26 +27,30 @@ const uploadFile = async () =>{
     progressContainer.style.display = "block";
     
     const showLink = (success) => {
-        progressContainer.style.display = "none";
-        userLinkSection.style.display = "block";
-        mailBox.style.display = "block";
-        mailText.style.display = "block";
-        EmailForm[2].removeAttribute("disabled")
-
+        if (success.file) {
+            textBox.value = success.file;
+            progressContainer.style.display = "none";
+            userLinkSection.style.display = "block";
+            mailBox.style.display = "block";
+            mailText.style.display = "block";
+            EmailForm[2].removeAttribute("disabled")
+        } else {
+            showToast(`can't upload more then 100 Mb file`);    
+            progressContainer.style.display = "none";
+        }
+        console.log(success);
     }
 
     const uploadUrl = `http://localhost:8000/post`
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            // console.log(xhr.response);
-            showLink(xhr.response);
+            showLink(JSON.parse(xhr.response) );
         }
     };
   
     const updateProgress = (e) => {
         const percent = Math.round((e.loaded / e.total)*100);
-        // console.log(percent);
         progressBar.style.width = `${percent}%`;
         blueBar.style.width = `${percent}%`;
         parcent.innerHTML = percent;
@@ -82,7 +85,7 @@ const handlevalidation = () => {
             console.log(`upload`);
             uploadFile();
         } else {
-            showToast(`can't upload upload more then 100 Mb file`);            
+            showToast(`can't upload more then 100 Mb file`);            
         }
     }else{
         showToast(`can't upload more them 1 file`);
@@ -132,7 +135,7 @@ EmailForm.addEventListener ("submit", (e) => {
         },
         body : JSON.stringify(forData)
     }).then( (res) => {
-        res.json();
+       return res.json();
     }).then( ({success}) => {
         if (success) {
             mailBox.style.display = "none";
@@ -152,3 +155,12 @@ const showToast = (msg) => {
         toast.style.display = "none";
     }, 3000);
 } 
+
+
+// const Fetch = () => {
+//     fetch("http://localhost:8000/user")
+//     .then(res => res.json())
+//     .then(data => console.log(data.name))
+// }
+
+// Fetch()

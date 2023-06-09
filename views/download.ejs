@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Sharing System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <% if (locals.error) {%>
+        <section class="uploadContainer">
+        <div class="dragZone">
+            <div class="iconContainer">
+                <img src="/images/download-Icons.png" alt="" class="fileLeft" draggable="false">
+            </div>
+            <h2>There is some Error to Download this</h2>
+        </div>
+        </section>
+    <% }else{ %>
+        <section class="uploadContainer" >
+        <div class="dragZoneforDownload" style="height: 300px; padding: 20px; gap: 12px;">
+            <div class="iconContainer">
+                <img src="/images/download-Icons.png" alt="" class="fileLeft" draggable="false">
+            </div>
+            <h2>Your File Ready to download</h2>
+            <h4>Link expired in 24 hourse</h4>
+            <h3><%= locals.MyFile%></h3>
+            <h3>size : <span><%= locals.size %>Kb</span></h3>
+            <a href="<%= locals.links %>" class="downloadBtn">Download</a>
+        </div>
+        </section>
+    <% } %>
+
+   <% if (locals.name) {%>
+    <h1><%= locals.name %></h1>
+    <% } %>
+
+    <!-- <script src="js/script.js"></script> -->
+</body>
+</html>

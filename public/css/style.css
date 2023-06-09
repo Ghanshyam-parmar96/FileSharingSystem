@@ -27,7 +27,7 @@ body{
     box-shadow:2px 5px 10px #c4bdbd;
 }
 
-.dragZone {
+.dragZone, .dragZoneforDownload {
     width: var(--Container-width);
     /* width: 30vw; */
     height: 200px ;
@@ -229,12 +229,22 @@ body{
     display: none;
 }
 
+.downloadBtn{
+    padding: 10px 20px;
+    background-color: #199ce5;
+    border-radius: 5px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    color: white;
+    font-weight: 700;
+}
+
 .image img{
     width : 40vw;
 }
 
 @media screen and (max-width : 900px) {
-
+    
     .image img{
        display: none;
     }
@@ -246,8 +256,17 @@ body{
 
 @media screen and (max-width : 768px) {
     .mailBox div {
-        gap: 10px;
+        gap: 10vw;
+        justify-content: space-between;
     }
 }
+
+@media screen and (max-width : 460px) {
+    .mailBox div {
+       flex-direction: column;
+    }
+}
+
+
 
 
