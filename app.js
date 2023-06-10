@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 app.use("/post", require("./router/rout"));
 app.use("/files", require("./router/files"));
+app.use("/api/user/email", require("./router/sendEmail"));
 
 
 app.get("/", (req, res) => {

@@ -248,7 +248,10 @@ body{
     .image img{
        display: none;
     }
- 
+    
+    body{
+        justify-content: center;
+    }
     :root {
         --Container-width : 70vw;           
     }

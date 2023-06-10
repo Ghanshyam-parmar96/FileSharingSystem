@@ -6,7 +6,9 @@ router.get("/:uuid" , async (req, res) => {
         const file = await uploadFile.findOne({uuid : req.params.uuid});
         const {MyFile, uuid, path, size, createdAt} = file;
         res.render("download", {
-            MyFile, size, links: `${process.env.DOMAIN_NAME}/files/download/${uuid}`
+            MyFile,
+            size : parseInt(size/1000),
+            links: `${process.env.DOMAIN_NAME}/files/download/${uuid}`
         });        
     } catch (error) {
         res.render("download",{

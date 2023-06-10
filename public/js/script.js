@@ -38,7 +38,7 @@ const uploadFile = async () =>{
             showToast(`can't upload more then 100 Mb file`);    
             progressContainer.style.display = "none";
         }
-        console.log(success);
+        // console.log(success);
     }
 
     const uploadUrl = `http://localhost:8000/post`
@@ -82,7 +82,6 @@ dragZone.addEventListener("dragleave", (event) => {
 const handlevalidation = () => {    
     if (fileInput.files.length === 1) {
         if (fileInput.files[0].size <= maxUploadSize) {
-            console.log(`upload`);
             uploadFile();
         } else {
             showToast(`can't upload more then 100 Mb file`);            
@@ -122,13 +121,15 @@ EmailForm.addEventListener ("submit", (e) => {
     const url = textBox.value;
     const forData = {
         uuid : url.split("/").splice(-1 , 1)[0],
-        emailTo : EmailForm.elements["YourEmail"].value,
-        emailFrom : EmailForm.elements["ClientEmail"].value,
+        emailFrom : EmailForm.elements["YourEmail"].value,
+        emailTo : EmailForm.elements["ClientEmail"].value,
     };
+
+    // console.log(forData);
 
     EmailForm[2].setAttribute("disabled" , "true");
 
-    fetch( `http://localhost:8000/post/gmail`, {
+    fetch( `http://localhost:8000/api/user/email`, {
         method : "POST",
         headers : {
             "Content-Type" : "application/json"
@@ -136,11 +137,12 @@ EmailForm.addEventListener ("submit", (e) => {
         body : JSON.stringify(forData)
     }).then( (res) => {
        return res.json();
-    }).then( ({success}) => {
-        if (success) {
-            mailBox.style.display = "none";
-            showToast("Email Send")
-        }
+    }).then( (data) => {
+        console.log(data);
+        // if (success) {
+        //     mailBox.style.display = "none";
+        //     showToast("Email Send")
+        // }
     }).catch( (err) => {
         console.log(err);
     })

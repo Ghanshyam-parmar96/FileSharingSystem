@@ -39,6 +39,7 @@ rout.post("/",  async (req, res) => {
         uuid : uuidv4(),
         path : req.file.path,
         size : req.file.size,
+        sendExpired : 2,
       })
 
       const response = await fileName.save();

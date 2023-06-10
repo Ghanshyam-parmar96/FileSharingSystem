@@ -15,8 +15,20 @@ const fileSchema = new mongoose.Schema({
         required: true,
     },
     size : {
-        type : String,
+        type : Number,
         required: true,
+    },
+    sendExpired : {
+        type : Number,
+        required: true,
+    },
+    sender : {
+        type : String,
+        required: false,
+    },
+    receiver : {
+        type : String,
+        required: false,
     }
 }, {timestamps: true});
 
